@@ -1,6 +1,39 @@
 from window import Window
 from geometry import Line, Point
 
+class Maze:
+    def __init__(
+            self,
+            x1: int,
+            y1: int,
+            num_rows: int,
+            num_cols: int,
+            cell_size_x: int,
+            cell_size_y: int,
+            win: Window,
+    ):
+        self.x1 = x1
+        self.y1 = y1
+        self.num_rows = num_rows
+        self.num_cols = num_cols
+        self.cell_size_x = cell_size_x
+        self.cell_size_y = cell_size_y
+        self.win = win
+        
+    def create_cells(self):
+        self.cells: list[list[Cell]] = []
+        for col in range(self.num_cols):
+            self.cells.append([])
+            for row in range(self.num_rows):
+                self.cells[col].append(Cell(self.win))
+
+
+    def draw_cell(self, i, j):
+        pass
+
+    def animate(self):
+        pass
+
 
 class Cell:
     def __init__(self, win: Window):
