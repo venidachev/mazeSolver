@@ -1,6 +1,7 @@
 from window import Window
 from geometry import Line, Point
 
+
 class Cell:
     def __init__(self, win: Window):
         self.has_left_wall = True
@@ -30,3 +31,14 @@ class Cell:
         if self.has_bottom_wall:
             line = Line(Point(x1, y2), Point(x2, y2))
             self.win.draw_line(line)
+
+    def draw_move(self, to_cell: "Cell", undo=False):
+        x1 = (self.x1 + self.x2) // 2
+        y1 = (self.y1 + self.y2) // 2
+        x2 = (to_cell.x1 + to_cell.x2) // 2
+        y2 = (to_cell.y1 + to_cell.y2) // 2
+        line = Line(Point(x1, y1), Point(x2, y2))
+        if undo:
+            self.win.draw_line(line, "red")
+        else:
+            self.win.draw_line(line, "gray")
