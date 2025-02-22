@@ -22,6 +22,7 @@ class Maze:
         self.win = win
         self.cells: list[list[Cell]] = []
         self.create_cells()
+        self.break_entrance_and_exit()
 
         
     def create_cells(self):
@@ -50,6 +51,12 @@ class Maze:
         self.win.redraw()
         time.sleep(0.05)
 
+    def break_entrance_and_exit(self):
+        self.cells[0][0].has_top_wall = False
+        self.draw_cell(0, 0)
+        self.cells[self.num_cols - 1][self.num_rows - 1].has_bottom_wall = False
+        self.draw_cell(self.num_cols - 1, self.num_rows - 1)
+
 
 class Cell:
     def __init__(self, win: Window):
@@ -71,15 +78,27 @@ class Cell:
         if self.has_left_wall:
             line = Line(Point(x1, y1), Point(x1, y2))
             self.win.draw_line(line)
+        else:
+            line = Line(Point(x1, y1), Point(x1, y2))
+            self.win.draw_line(line, "#D9D9D9")
         if self.has_top_wall:
             line = Line(Point(x1, y1), Point(x2, y1))
             self.win.draw_line(line)
+        else:
+            line = Line(Point(x1, y1), Point(x2, y1))
+            self.win.draw_line(line, "#D9D9D9")
         if self.has_right_wall:
             line = Line(Point(x2, y1), Point(x2, y2))
             self.win.draw_line(line)
+        else:
+            line = Line(Point(x2, y1), Point(x2, y2))
+            self.win.draw_line(line, "#D9D9D9")
         if self.has_bottom_wall:
             line = Line(Point(x1, y2), Point(x2, y2))
             self.win.draw_line(line)
+        else:
+            line = Line(Point(x1, y2), Point(x2, y2))
+            self.win.draw_line(line, "#D9D9D9")
 
     def draw_move(self, to_cell: "Cell", undo=False):
         x1 = (self.x1 + self.x2) // 2
